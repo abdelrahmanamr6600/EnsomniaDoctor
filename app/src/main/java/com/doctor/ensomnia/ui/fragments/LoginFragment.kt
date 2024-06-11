@@ -99,6 +99,7 @@ private fun setListeners(){
     private fun goToRecentChatActivity(){
         val intent = Intent(requireContext(), RecentChatActivity::class.java)
         requireActivity().startActivity(intent)
+        requireActivity().finish()
     }
 
 }

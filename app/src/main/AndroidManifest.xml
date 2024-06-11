@@ -17,11 +17,16 @@
         android:theme="@style/Theme.EnsomniaDoctor"
         tools:targetApi="31">
         <activity
-            android:name=".ui.RecentChatActivity"
+            android:name=".ui.ChatActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.RecentChatActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".ui.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

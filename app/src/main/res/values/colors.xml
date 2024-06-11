@@ -12,4 +12,5 @@
     <color name="red">#F02E00</color>
     <color name="input_background">#ECECEC</color>
     <color name="container_background">#FFFFFFFF</color>
+    <color name="green">#30DA4D</color>
 </resources>

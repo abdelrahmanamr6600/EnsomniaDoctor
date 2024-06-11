@@ -20,4 +20,6 @@
     <string name="less_than_7_digits">Less than 7 digits</string>
     <string name="enter_phone">Pleae Enter Your Phone Number</string>
     <string name="enter_password">Please Enter Your Password</string>
+    <string name="type_a_message">Type a Message</string>
+    <string name="online">Online</string>
 </resources>

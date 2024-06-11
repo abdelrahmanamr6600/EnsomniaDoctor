@@ -25,6 +25,7 @@ class AuthRepository(private var application: Application) {
     private  var  user :MutableLiveData<FirebaseUser> = MutableLiveData()
     private var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val mFireStore = FirebaseFirestore.getInstance()
+    val preferenceManager = PreferenceManager(application.baseContext)
 
     fun getCurrentUser(): MutableLiveData<FirebaseUser>{
         return  user
@@ -50,13 +51,9 @@ class AuthRepository(private var application: Application) {
             taskSnapShot.metadata!!.reference!!.downloadUrl.addOnSuccessListener { Uri ->
                 user.image = Uri.toString()
                 saveUserInFireStore(user)
-
-
             }
                 .addOnFailureListener { Exception ->
-
                     Log.e("Upload Image Error",Exception.message,Exception)
-
                 }
         }
     }
@@ -80,19 +77,18 @@ class AuthRepository(private var application: Application) {
 
     }
     private fun getUserInfFromFireStore(id:String){
+        preferenceManager.putString("doctorId",id)
         mFireStore.collection(Constants.KEY_COLLECTION_DOCTORS).document(id).get().addOnSuccessListener {
             val userDoc = it.toObject(Doctor::class.java)
-            userDoc!!.id = this.user.value!!.uid
-            saveDataInPreference(userDoc)
+            saveDataInPreference(userDoc!!)
         }
 
     }
 
     private fun saveDataInPreference(user: Doctor){
-        val preferenceManager = PreferenceManager(application.baseContext)
+        Log.d("state","saved")
         preferenceManager.putBoolean("Login",true)
         preferenceManager.putString("doctorName",user.name!!)
-        preferenceManager.putString("doctorId",this.user.value!!.uid)
         preferenceManager.putString("doctorEmail",user.email!!)
         preferenceManager.putString("doctorImage",user.image!!)
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
